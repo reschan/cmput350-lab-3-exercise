@@ -83,14 +83,16 @@ public:
 
 
     template <typename U>
-    bool operator=(SharedPtr<U>& other) : mPtr{other.get()} {
+    SharedPtr operator=(SharedPtr<U>& other) : mPtr{other.get()} {
         mBlockPtr = other.getBlock();
         mBlockPtr->increment();
+        return this;
     };  // copy ctor
 
     template <typename U>
-    bool operator=(SharedPtr<U>&& other) : mPtr{other.get()} {
+    SharedPtr operator=(SharedPtr<U>&& other) : mPtr{other.get()} {
         mBlockPtr = other.getBlock();
+        return this;
     }  // move ctor
 
     ~SharedPtr() {
