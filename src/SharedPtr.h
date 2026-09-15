@@ -75,7 +75,7 @@ public:
     SharedPtr(SharedPtr<U>& other) : mPtr{other.get()} {
         mBlockPtr = other.getBlock();
         mBlockPtr->increment();
-    };  // copy ctor
+    }  // copy ctor
     template <typename U>
     SharedPtr(SharedPtr<U>&& other) : mPtr{other.get()} {
         mBlockPtr = other.getBlock();
@@ -83,14 +83,16 @@ public:
 
 
     template <typename U>
-    SharedPtr operator=(SharedPtr<U>& other) : mPtr{other.get()} {
+    SharedPtr operator=(SharedPtr<U>& other) {
+        mPtr = other.get();
         mBlockPtr = other.getBlock();
         mBlockPtr->increment();
         return this;
-    };  // copy ctor
+    }  // copy ctor
 
     template <typename U>
-    SharedPtr operator=(SharedPtr<U>&& other) : mPtr{other.get()} {
+    SharedPtr operator=(SharedPtr<U>&& other) {
+        mPtr = other.get();
         mBlockPtr = other.getBlock();
         return this;
     }  // move ctor
