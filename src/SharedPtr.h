@@ -81,6 +81,18 @@ public:
         mBlockPtr = other.getBlock();
     }  // move ctor
 
+
+    template <typename U>
+    bool operator=(SharedPtr<U>& other) : mPtr{other.get()} {
+        mBlockPtr = other.getBlock();
+        mBlockPtr->increment();
+    };  // copy ctor
+
+    template <typename U>
+    bool operator=(SharedPtr<U>&& other) : mPtr{other.get()} {
+        mBlockPtr = other.getBlock();
+    }  // move ctor
+
     ~SharedPtr() {
         
         if (mPtr != nullptr) {
